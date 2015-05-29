@@ -1,0 +1,15 @@
+*.egg*
+*.py[co]
+*.swp
+*.swo
+.DS_Store
+*~
+*.db
+*.log
+assets
+tmp/
+.env
+ssh_keys/id_rsa
+ssh_keys/id_rsa.pub
+ssh_keys/authorized_keys
+ssl_cert/*
