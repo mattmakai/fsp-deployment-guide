@@ -1,0 +1,40 @@
+upstream app_server_wsgiapp {
+  server localhost:{{ wsgi_server_port }} fail_timeout=0;
+}
+
+server {
+  listen 80;
+  server_name {{ fqdn }};
+
+  access_log   /var/log/nginx/{{ fqdn }}.access.log;
+  error_log   /var/log/nginx/{{ fqdn }}.error.log info;
+  keepalive_timeout    5;
+  
+  location /static {
+    autoindex on;
+    alias {{ app_dir }}/{{ app_name }}/static;
+  }
+
+  location / {
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $http_host;
+    proxy_redirect off;
+    if (!-f $request_filename) {
+      proxy_pass http://app_server_wsgiapp;
+      break; 
+    }
+  }
+
+  # this section allows Nginx to reverse proxy for websockets
+  location /socket.io {
+    proxy_pass http://app_server_wsgiapp/socket.io;
+    proxy_redirect off;
+    proxy_buffering off;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+  } 
+}

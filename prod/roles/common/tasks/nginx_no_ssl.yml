@@ -1,0 +1,17 @@
+###
+# Configuration for Nginx web server without HTTPS
+##
+- name: ensure Nginx is installed via the system package
+  apt: name=nginx state=present update_cache=yes
+  sudo: yes
+
+- name: ensure default symbolic linked website is deleted
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  sudo: yes
+
+- name: write non-SSL nginx configuration
+  template: src=nginx_no_ssl.conf.j2
+            dest=/etc/nginx/conf.d/{{ app_name }}.conf
+  sudo: yes
+  notify:
+    - restart nginx

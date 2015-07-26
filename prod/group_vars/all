@@ -4,4 +4,15 @@ deploy_user: deployer
 deploy_group: deployers
 ## this is the local directory with the SSH keys and known_hosts 
 ## file do not include a trailing slash
-ssh_dir: ~/devel/py/fsp-deployment-guide/ssh_keys
+ssh_dir: ~/fsp-deployment-guide/ssh_keys
+
+
+# Chapter 4: Web Servers
+## deploy_ssl true for HTTPS, false for only HTTP
+deploy_ssl: true
+wsgi_server_port: 8000
+fqdn: cyoa.mattmakai.com
+app_dir: /home/{{deploy_user}}/{{app_name}}
+## local directory SSL certificates should be located here
+ssl_certs_dir: ~/fsp-deployment-guide/ssl_cert/
+

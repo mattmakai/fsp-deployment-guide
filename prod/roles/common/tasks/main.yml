@@ -2,3 +2,9 @@
 # configures the server and installs the web application
 ##
 - include: ubuntu.yml
+
+- include: nginx_ssl.yml
+  when: deploy_ssl
+
+- include: nginx_no_ssl.yml
+  when: not deploy_ssl
