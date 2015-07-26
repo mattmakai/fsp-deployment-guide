@@ -1,0 +1,24 @@
+###
+# Installs and configures the PostgreSQL database
+#
+- name: ensure postgresql database packages are installed
+  apt: name={{item}}
+  sudo: yes
+  with_items:
+    - postgresql
+    - libpq-dev
+    - python-psycopg2
+    - postgresql-client
+    - postgresql-client-common
+
+- name: ensure database is created
+  postgresql_db: name={{ app_name }}
+  sudo: yes
+  sudo_user: postgres
+
+- name: configure separate PostgreSQL user
+  postgresql_user: db={{ app_name }} name={{ db_user }}
+                   password={{ db_password }} priv=ALL
+                   role_attr_flags=NOSUPERUSER
+  sudo: yes
+  sudo_user: postgres
