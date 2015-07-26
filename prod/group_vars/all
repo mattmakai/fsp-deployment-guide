@@ -9,18 +9,18 @@ ssh_dir: ~/fsp-deployment-guide/ssh_keys
 
 # Chapter 4: Web Servers
 ## deploy_ssl true for HTTPS, false for only HTTP
-deploy_ssl: true
+deploy_ssl: false
 wsgi_server_port: 8000
 fqdn: cyoa.mattmakai.com
 app_dir: /home/{{deploy_user}}/{{app_name}}
 ## local directory SSL certificates should be located here
-ssl_certs_dir: ~/fsp-deployment-guide/ssl_cert/
+ssl_certs_dir: /~/fsp-deployment-guide/ssl_cert/
+
 
 # Chapter 5: Source Control
-## this is the local directory with the deploy_key and deploy_key.pub 
-## files. do not include a trailing slash
 local_deploy_key_dir: ~/fsp-deployment-guide/deploy_key
 code_repository: ssh://git@github.com/makaimc/choose-your-own-adventure-presentations.git
+
 
 # Chapter 6: Databases
 db_url: postgresql://{{deploy_user}}:{{db_password}}@localhost/{{app_name}}
@@ -29,3 +29,31 @@ db_url: postgresql://{{deploy_user}}:{{db_password}}@localhost/{{app_name}}
 db_password: fortheloveofgodpleaseuseagoodpassword
 db_name: "{{ app_name }}"
 db_user: "{{ deploy_user }}"
+
+
+# Chapter 7: Application Dependencies
+venv_dir: "/home/{{ deploy_user }}/venvs/{{ app_name }}"
+venv_python: "{{venv_dir}}/bin/python"
+flask_env_vars: {
+    ## in production you'll likely want to set this to False
+    DEBUG: True,
+    ## make sure to set your own unique long secret key for your app
+    SECRET_KEY: 'super secret key make sure to change this',
+    DATABASE_URL: '{{ db_url }}',
+    REDIS_SERVER: 'localhost',
+    REDIS_PORT: 6379,
+    REDIS_DB: 1,
+    ## these next two environment variables are found in the
+    ## Twilio account dashboard on twilio.com
+    TWILIO_ACCOUNT_SID: 'found on the twilio dashboard',
+    TWILIO_AUTH_TOKEN: 'also found on the twilio dashboard',
+    ## grab a number on Twilio for the application and Ansible
+    TWILIO_NUMBER: '+15551234567',
+    CELERY_BROKER_URL: 'redis://localhost:6379/0',
+    CELERY_RESULT_BACKEND: 'redis://localhost:6379/0',
+}
+## username you want to use to log into app's admin screen
+app_admin_user: ''
+## password you want to use to log into app's admin screen
+app_admin_password: ''
+
