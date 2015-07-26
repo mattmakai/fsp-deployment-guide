@@ -1,6 +1,6 @@
 # The Full Stack Python Guide to Deployments
-Open source repository that goes along with the upcoming 
+This repository is the code companion to 
 [Full Stack Python Guide to Deployments](http://www.deploypython.com/)
 book.
 
-Releasing in mid-June 2015.
+The book [releases on July 28, 2015](https://gumroad.com/l/WOvyt).
