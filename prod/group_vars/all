@@ -59,3 +59,14 @@ wsgi_env_vars: {
 app_admin_user: ''
 ## password you want to use to log into app's admin screen
 app_admin_password: ''
+
+
+# Chapter 8: WSGI Servers
+## no new variables necessary for this chapter
+
+
+# Chapter 9: Task queues
+deployment_alert: true
+## your phone number that should receive a deployment complete
+## text message. example format: "+19735551234"
+alert_number: ""
