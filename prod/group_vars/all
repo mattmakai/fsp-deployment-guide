@@ -16,3 +16,8 @@ app_dir: /home/{{deploy_user}}/{{app_name}}
 ## local directory SSL certificates should be located here
 ssl_certs_dir: ~/fsp-deployment-guide/ssl_cert/
 
+# Chapter 5: Source Control
+## this is the local directory with the deploy_key and deploy_key.pub 
+## files. do not include a trailing slash
+local_deploy_key_dir: ~/fsp-deployment-guide/deploy_key
+code_repository: ssh://git@github.com/makaimc/choose-your-own-adventure-presentations.git

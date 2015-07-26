@@ -11,7 +11,7 @@ tmp/
 .env
 ssh_keys/prod_key
 ssh_keys/prod_key.pub
-ssh_keys/deploy_key
-ssh_keys/deploy_key.pub
+deploy_key/deploy_key
+deploy_key/deploy_key.pub
 ssh_keys/authorized_keys
 ssl_cert/*
