@@ -1,0 +1,30 @@
+##
+# updates the APT package cache and install packages
+# servers necessary for web. also enables firewall
+##
+- apt: update_cache=yes
+  sudo: yes
+
+- name: ensure web server packages are installed
+  apt: name={{item}}
+  sudo: yes
+  with_items:
+    - fail2ban
+    - python-virtualenv
+    - python-dev
+
+- name: enable SSH in firewall
+  ufw: rule=allow port=22
+  sudo: yes
+
+- name: enable HTTP connections for web server
+  ufw: rule=allow port=80
+  sudo: yes
+
+- name: enable HTTPS connections for web server
+  ufw: rule=allow port=443
+  sudo: yes
+
+- name: enable firewall
+  ufw: state=enabled
+  sudo: yes

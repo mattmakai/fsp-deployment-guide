@@ -1,0 +1,7 @@
+# Chapter 3: Operating System (Ubuntu)
+app_name: cyoa
+deploy_user: deployer
+deploy_group: deployers
+## this is the local directory with the SSH keys and known_hosts 
+## file do not include a trailing slash
+ssh_dir: ~/devel/py/fsp-deployment-guide/ssh_keys
