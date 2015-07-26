@@ -13,3 +13,5 @@
 - include: postgresql.yml
 - include: redis.yml
 - include: dependencies.yml
+
+- include: wsgi.yml
