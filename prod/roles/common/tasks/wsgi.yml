@@ -1,0 +1,24 @@
+###
+# Sets up and configures Supervisor which runs Green Unicorn
+##
+- name: ensure Supervisor is installed via the system package
+  apt: name=supervisor state=present update_cache=yes
+  sudo: yes
+
+- name: create Supervisor template for the WSGI app to run
+  template: src=supervisor_app.conf.j2
+            dest=/etc/supervisor/conf.d/{{ app_name }}.conf
+  sudo: yes
+
+- name: stop supervisor for app
+  command: service supervisor stop
+  sudo: yes
+
+- name: pause for restart to take effect
+  pause: seconds=2
+
+- name: start supervisor for app
+  command: service supervisor start
+  sudo: yes
+  notify:
+    - restart nginx
