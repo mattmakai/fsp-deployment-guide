@@ -70,3 +70,9 @@ deployment_alert: true
 ## your phone number that should receive a deployment complete
 ## text message. example format: "+19735551234"
 alert_number: ""
+
+
+# Chapter 10: Continuous Integration
+## this grabs the sudo password for the deployer user
+## from an environment variable called REMOTE_DEPLOYER_PASSWORD
+deploy_user_password: "{{ lookup('env', 'REMOTE_DEPLOYER_PASSWORD') }}"
