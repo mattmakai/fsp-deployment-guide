@@ -18,4 +18,4 @@ book builds up the automation scripts progressively:
 * [07-application-dependencies](https://github.com/makaimc/fsp-deployment-guide/tree/07-application-dependencies): installs Python packages into a virtualenv, establishes environment variables and syncs the app to the database
 * [08-wsgi-servers](https://github.com/makaimc/fsp-deployment-guide/tree/08-wsgi-servers): configures Supervisor to run the app with Green Unicorn
 * [09-task-queues](https://github.com/makaimc/fsp-deployment-guide/tree/09-task-queues): adds to the Supervisor configuration for Celery and Redis
-
+* [10-continuous-integration](https://github.com/makaimc/fsp-deployment-guide/tree/10-continuous-integration): modifies the Ansible playbook so it does not prompt for SUDO password for CI server
