@@ -1,6 +1,10 @@
 ##
 # Configuration for Nginx web server
 ##
+- name: ensure Nginx is installed via the system package
+  apt: name=nginx state=present update_cache=yes
+  sudo: yes
+
 - name: create nginx ssl directory if it does not exist
   file: path=/etc/nginx/{{ app_name }} state=directory
   sudo: yes
