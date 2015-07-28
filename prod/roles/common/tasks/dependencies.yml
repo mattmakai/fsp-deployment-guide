@@ -1,0 +1,21 @@
+###
+# Handles application dependencies and environment variables
+# Also syncs the application with the database schema
+##
+- name: create virtualenv directory if it does not already exist
+  file: path={{ venv_dir }} state=directory
+
+- name: install dependencies into a new virtualenv
+  pip: requirements={{ app_dir }}/requirements.txt
+       virtualenv={{ venv_dir }}
+
+- name: create .env file in base directory of the app from template
+  template: src=env.j2
+            dest={{ app_dir }}/.env
+
+- name: sync the database tables between Flask and PostgreSQL
+  shell: ". {{ app_dir }}/.env; {{ venv_python }} {{ app_dir }}/manage.py syncdb"
+
+- name: create the initial admin user in the database
+  shell: ". {{ app_dir }}/.env; {{ venv_python }} {{ app_dir}}/manage.py create_wizard {{ app_admin_user }} {{ app_admin_password }}"
+

@@ -10,6 +10,6 @@
   when: not deploy_ssl
 
 - include: git.yml
-
 - include: postgresql.yml
 - include: redis.yml
+- include: dependencies.yml
