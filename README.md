@@ -3,7 +3,7 @@ This repository is the code companion to
 [Full Stack Python Guide to Deployments](http://www.deploypython.com/)
 book.
 
-The book [releases on July 28, 2015](https://gumroad.com/l/WOvyt).
+The book is now [available on Gumroad](https://gumroad.com/l/WOvyt)!
 
 ## Tags
 The following links take you to each chapter’s corresponding tag as the
