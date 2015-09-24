@@ -1,7 +1,6 @@
 from os import environ
 
 from fabric.api import *
-from fabric.context_managers import cd
 from fabric.contrib.files import sed
 
 """
