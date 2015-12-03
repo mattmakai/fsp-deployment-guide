@@ -1,7 +1,6 @@
-from os import environ
+import os
 
 from fabric.api import *
-from fabric.context_managers import cd
 from fabric.contrib.files import sed
 
 """
@@ -40,7 +39,10 @@ env.ssh_key_dir = '~/fsp-deployment-guide/ssh_keys'
    complete the bootstrap process.
 """
 def bootstrap():
-    local('ssh-keygen -R %s' % env.host_string)
+    env.ssh_key_filepath = os.path.join(env.ssh_key_dir, env.host_string + "_prod_key")
+    local('ssh-keygen -t rsa -b 2048 -f {}'.format(env.ssh_key_filepath))
+    local('cp {} {}authorized_keys'.format(env.ssh_key_filepath + ".pub", env.ssh_key_dir))
+
     sed('/etc/ssh/sshd_config', '^UsePAM yes', 'UsePAM no')
     sed('/etc/ssh/sshd_config', '^PermitRootLogin yes', 'PermitRootLogin no')
     sed('/etc/ssh/sshd_config', '^#PasswordAuthentication yes',
@@ -73,8 +75,10 @@ def _create_privileged_user():
 
 
 def _upload_keys(username):
-    local('scp ' + env.ssh_key_dir + \
-          '/prod_key.pub ' + env.ssh_key_dir + \
-          '/authorized_keys ' + \
-          username + '@' + env.host_string + ':~/.ssh')
-
+    scp_command = "scp {} {}/authorized_keys {}@{}:~/.ssh".format(
+            env.ssh_key_filepath + ".pub",
+            env.ssh_key_dir,
+            username,
+            env.host_string
+            )
+    local(scp_command)
